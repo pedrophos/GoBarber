@@ -1,5 +1,6 @@
 import Sequelize,{ Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
+import sequelize from 'sequelize';
 
 class User extends Model {
   static init(sequelize) {
@@ -9,7 +10,7 @@ class User extends Model {
       password_hash: Sequelize.STRING,
       password: Sequelize.VIRTUAL,
       provider: Sequelize.BOOLEAN,
-      avatar_id: Sequelize.INTEGER
+    // avatar_id: Sequelize.INTEGER
 
     },
     {
@@ -25,8 +26,8 @@ class User extends Model {
     return this;
   }
 
-  static associate(models) {
-    this.belongsTo(models.File , { foreignKey: 'avatar_id'});
+   static associate(models) {
+    this.belongsTo(models.File , { foreignKey: 'avatar_id', as: 'avatar'});
   }
 
   checkPassword(password) {
